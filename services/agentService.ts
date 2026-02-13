@@ -14,6 +14,60 @@ const TAVILY_API_KEY = process.env.TAVILY_API_KEY || '';
 const OPENAI_MODEL = 'gpt-4o';
 const OPENAI_MINI = 'gpt-4o-mini';
 
+function getFallbackInsights(provider: CloudProvider): InsightTile[] {
+  const commonDetail = {
+    steps: [
+      { title: 'Baseline spend', description: `Open ${provider} cost tooling and identify top services by spend over the last 30 days.` },
+      { title: 'Apply one low-risk optimization', description: 'Start with a single high-impact change and validate results before broader rollout.' },
+      { title: 'Track realized savings', description: 'Compare post-change spend and usage metrics to confirm measurable cost reduction.' },
+    ],
+    technicalDetails: 'Fallback insights shown because live agent analysis failed. Check API keys and network access for OpenAI and Tavily.',
+  };
+
+  return [
+    {
+      id: `${provider.toLowerCase()}-fallback-1`,
+      title: 'Compute',
+      headline: `Rightsize overprovisioned ${provider} compute`,
+      rationale: 'Overprovisioned compute is a common cost driver and typically offers immediate optimization opportunity.',
+      type: InsightType.OPTIMIZATION,
+      detail: commonDetail,
+    },
+    {
+      id: `${provider.toLowerCase()}-fallback-2`,
+      title: 'Pricing',
+      headline: `Use commitment discounts for steady ${provider} workloads`,
+      rationale: 'Commitment-based pricing can materially reduce effective unit costs versus on-demand usage.',
+      type: InsightType.PRICING,
+      detail: commonDetail,
+    },
+    {
+      id: `${provider.toLowerCase()}-fallback-3`,
+      title: 'Storage',
+      headline: `Move infrequently accessed data to cheaper ${provider} tiers`,
+      rationale: 'Lifecycle policies and colder storage tiers reduce recurring storage spend without architecture changes.',
+      type: InsightType.OPTIMIZATION,
+      detail: commonDetail,
+    },
+    {
+      id: `${provider.toLowerCase()}-fallback-4`,
+      title: 'Governance',
+      headline: `Enable budget alerts and anomaly detection`,
+      rationale: 'Continuous spend monitoring detects regressions early and prevents surprise cost spikes.',
+      type: InsightType.GUIDE,
+      detail: commonDetail,
+    },
+    {
+      id: `${provider.toLowerCase()}-fallback-5`,
+      title: 'Risk',
+      headline: `Audit idle resources and unattached assets`,
+      rationale: 'Unused resources and orphaned storage regularly create hidden spend with no production value.',
+      type: InsightType.WARNING,
+      detail: commonDetail,
+    },
+  ];
+}
+
 // ── Types ───────────────────────────────────────────────────────
 
 interface ResearchTask {
@@ -390,6 +444,12 @@ export async function analyzeWithAgents(
   onProgress?: (stage: string) => void
 ): Promise<InsightTile[]> {
   try {
+    if (!OPENAI_API_KEY) {
+      console.warn('OPENAI_API_KEY missing. Using fallback insights.');
+      onProgress?.('Using fallback insights...');
+      return getFallbackInsights(provider);
+    }
+
     // STAGE 1: Orchestrator breaks down the problem
     onProgress?.('Analyzing your scenario...');
     console.log('🎯 [Orchestrator] Breaking down user query...');
@@ -413,10 +473,11 @@ export async function analyzeWithAgents(
     const insights = await synthesizeInsights(agentResults, userPrompt, provider);
     console.log(`✅ [Synthesizer] Generated ${insights.length} insights`);
 
-    return insights;
+    return insights.length > 0 ? insights : getFallbackInsights(provider);
   } catch (error) {
     console.error('Agent pipeline error:', error);
-    throw error;
+    onProgress?.('Using fallback insights...');
+    return getFallbackInsights(provider);
   }
 }
 

@@ -1,0 +1,279 @@
+:root {
+  --bg: #eaedf2;
+  --surface: rgba(255, 255, 255, 0.78);
+  --surface-strong: #ffffff;
+  --text: #0f172a;
+  --muted: #5f6673;
+  --line: rgba(15, 23, 42, 0.06);
+  --shadow-soft: 0 18px 48px rgba(15, 23, 42, 0.08);
+  --shadow-card: 0 10px 26px rgba(15, 23, 42, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Manrope', system-ui, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 16% 18%, rgba(176, 201, 228, 0.38), transparent 35%),
+    radial-gradient(circle at 85% 10%, rgba(255, 238, 197, 0.36), transparent 28%),
+    linear-gradient(180deg, #eff2f6 0%, #e8ecf1 100%);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: 'Sora', system-ui, sans-serif;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.glass-panel {
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-soft);
+}
+
+.section-shell {
+  width: min(1180px, calc(100% - 2.5rem));
+  margin: 0 auto;
+}
+
+.section-gap {
+  padding: 4.5rem 0;
+}
+
+.panel-soft {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: var(--shadow-card);
+}
+
+/* Landing page: remove all decorative borders and keep only the hero input border */
+.landing-clean [class*='border-'] {
+  border-color: transparent !important;
+}
+
+.landing-clean [class*='ring-'] {
+  --tw-ring-color: transparent !important;
+}
+
+.landing-clean .keep-input-border {
+  border: 1px solid rgba(148, 163, 184, 0.6) !important;
+}
+
+.landing-clean .keep-input-border:focus {
+  border-color: rgba(100, 116, 139, 0.85) !important;
+}
+
+.landing-clean .panel-soft,
+.landing-clean .glass-panel,
+.landing-clean article,
+.landing-clean form,
+.landing-clean footer > div {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.landing-clean section div[class*='bg-white/'],
+.landing-clean section div[class*='bg-slate-'],
+.landing-clean section article div[class*='bg-slate-'],
+.landing-clean section article div[class*='bg-white'] {
+  background: transparent !important;
+}
+
+.landing-clean section div[class*='shadow-'],
+.landing-clean section article[class*='shadow-'],
+.landing-clean section article div[class*='shadow-'] {
+  box-shadow: none !important;
+}
+
+/* Scoped exception: glassmorphic agentic workflow section */
+.landing-clean .agentic-flow .agentic-shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 34px;
+  padding: 2.5rem 1.5rem 2.6rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.34)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.72) !important;
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+.landing-clean .agentic-flow .agentic-glow {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(24px);
+  opacity: 0.55;
+}
+
+.landing-clean .agentic-flow .agentic-glow-one {
+  width: 220px;
+  height: 220px;
+  top: -60px;
+  left: -40px;
+  background: rgba(56, 189, 248, 0.24);
+}
+
+.landing-clean .agentic-flow .agentic-glow-two {
+  width: 250px;
+  height: 250px;
+  bottom: -90px;
+  right: -40px;
+  background: rgba(59, 130, 246, 0.22);
+}
+
+.landing-clean .agentic-flow .agentic-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.landing-clean .agentic-flow .agentic-tile {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.28)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.74) !important;
+  border-radius: 22px;
+  padding: 1.3rem;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08) !important;
+  animation: agentic-fade-up 650ms ease both;
+}
+
+.landing-clean .agentic-flow .agentic-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.95rem;
+}
+
+.landing-clean .agentic-flow .agentic-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #1c56d6;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.58) !important;
+  border: 1px solid rgba(255, 255, 255, 0.82) !important;
+}
+
+.landing-clean .agentic-flow .agentic-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: #6b7c95;
+}
+
+@keyframes agentic-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .landing-clean .agentic-flow .agentic-shell {
+    padding: 3rem 2.4rem 3.1rem;
+  }
+
+  .landing-clean .agentic-flow .agentic-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: reveal-up 0.8s ease forwards;
+}
+
+.reveal-delay-1 {
+  animation-delay: 0.08s;
+}
+
+.reveal-delay-2 {
+  animation-delay: 0.16s;
+}
+
+.reveal-delay-3 {
+  animation-delay: 0.24s;
+}
+
+.float-slow {
+  animation: float-slow 7.5s ease-in-out infinite;
+}
+
+.float-slower {
+  animation: float-slower 10s ease-in-out infinite;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float-slower {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(12px);
+  }
+}
+
+@media (max-width: 768px) {
+  .section-shell {
+    width: min(1180px, calc(100% - 1.25rem));
+  }
+
+  .section-gap {
+    padding: 3.2rem 0;
+  }
+}

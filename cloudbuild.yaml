@@ -18,6 +18,22 @@ steps:
   - name: gcr.io/cloud-builders/docker
     args: ["push", "$_IMAGE"]
 
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args:
+      - run
+      - deploy
+      - $_SERVICE
+      - --image=$_IMAGE
+      - --region=$_REGION
+      - --platform=managed
+      - --allow-unauthenticated
+      - --port=8080
+
+substitutions:
+  _REGION: us-central1
+  _SERVICE: costli2
+  _IMAGE: us-central1-docker.pkg.dev/$PROJECT_ID/costli-repo/costli2:latest
+
 images:
   - $_IMAGE
 

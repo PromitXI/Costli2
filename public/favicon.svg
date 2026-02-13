@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#083f6b"/>
+      <stop offset="100%" stop-color="#0b274e"/>
+    </linearGradient>
+    <linearGradient id="cash" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d88b"/>
+      <stop offset="100%" stop-color="#0fba6f"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="32" cy="32" r="29" fill="none" stroke="url(#ring)" stroke-width="8" stroke-linecap="round" stroke-dasharray="140 48" transform="rotate(-20 32 32)"/>
+  <text x="32" y="42" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="url(#cash)">$</text>
+</svg>
